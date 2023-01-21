@@ -6,6 +6,5 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        self.request.session.get("my_name", "HACKER")
-        print(self.request.session.get("my_name", "HACKER"))
+        self.request.session.get("my_name", "ADDCART")
         return context
