@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_list_or_404
 from django.views import View
 from product.models import Product
-from .card_module import Cart
+from .cart_module import Cart
 
 class CartDetailView(View):
     def get(self, request):
