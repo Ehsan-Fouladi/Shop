@@ -11,7 +11,7 @@ class Cart:
         cart = self.session.get(CART_SESSION_ID)
         if not cart:
             cart = self.session[CART_SESSION_ID] = {}
-            self.cart = cart
+        self.cart = cart
 
     def __iter__(self):
         cart = self.cart.copy()
