@@ -12,7 +12,7 @@ class CartDetailView(View):
 class CartAddView(View):
     def post(self, request, pk):
         product = get_object_or_404(Product, id=pk)
-        size, color, quantity = request.POST.get("size"), request.POST.get("color"), request.POST.get("quantity")
+        size, color, quantity = request.POST.get("size", 'size'), request.POST.get("color", 'color'), request.POST.get("quantity")
         cart = Cart(request)
         cart.add(product, quantity, color, size)
         return redirect("cart:cart_detail")
@@ -20,6 +20,6 @@ class CartAddView(View):
 class CartDeleteView(View):
     def get(self, request, id):
         cart = Cart(request)
-        cart.remove()
+        cart.remove(id)
         return redirect("cart:cart_detail")
 
