@@ -88,3 +88,18 @@ class Otp(models.Model):
 
     class Meta:
         verbose_name_plural = "کدتاید"
+
+
+class Address(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="addresses")
+    fullname = models.CharField(max_length=100)
+    email = models.EmailField(blank=True, null=True)
+    phone = models.CharField(max_length=12)
+    address = models.CharField(max_length=300)
+    postal_code = models.CharField(max_length=30)
+
+    def __str__(self):
+        return f'{self.user.number}, {self.email}, {self.postal_code}'
+
+    class Meta:
+        verbose_name = "ادرس کاربرها"

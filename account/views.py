@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect, reverse
 from django.views import View
-from .forms import FormLogin, OtpLoginForm, CzechOtpForm
+from .forms import FormLogin, OtpLoginForm, CzechOtpForm, AddressCreationForm
 import ghasedakpack
 from random import randint
 from .models import Otp, User
@@ -62,7 +62,7 @@ class CzechOtpView(View):
         token = request.GET.get('token')
         form = CzechOtpForm(request.POST)
         if form.is_valid():
-            cd =  form.cleaned_data
+            cd = form.cleaned_data
             if Otp.objects.filter(code=cd["code"], token=token).exists():
                 otp = Otp.objects.get(token=token)
                 user, is_create = User.objects.get_or_create(number=otp.number)
@@ -72,8 +72,20 @@ class CzechOtpView(View):
 
         else:
             form.add_error("number", 'invalid phone')
-        return render(request, "account/check_otp.html", {"form":form})
+        return render(request, "account/check_otp.html", {"form": form})
 
+
+class AddAddressView(View):
+    def post(self, request):
+        form = AddressCreationForm(request.POST)
+        if form.is_valid():
+            address = form.save(commit=False)
+            address.user = request.user
+            address.save()
+        return render(request, "account/add_address.html", {"form": form})
+    def get(self, request):
+        form = AddressCreationForm
+        return render(request, "account/add_address.html", {"form": form})
 
 def user_logout(request):
     logout(request)

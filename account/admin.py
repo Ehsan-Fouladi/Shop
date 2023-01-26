@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from account.models import User, Otp
+from account.models import User, Otp, Address
 from .forms import UserCreationForm, UserChangeForm
 
 class UserAdmin(BaseUserAdmin):
@@ -31,7 +31,7 @@ class UserAdmin(BaseUserAdmin):
     ordering = ('email',)
     filter_horizontal = ()
 
-
+admin.site.register(Address)
 admin.site.register(User, UserAdmin)
 admin.site.register(Otp)
 admin.site.unregister(Group)
