@@ -24,11 +24,11 @@
                             <tr>
                             <td class="align-middle"><img src="{{ item.product.image.url }}" alt="" style="width: 50px;"></td>
                             <td class="align-middle">{{ item.product.title }}</td>
-                            <td class="align-middle">{{ item.price }}</td>
+                            <td class="align-middle">${{ item.price }}</td>
                             <td class="align-middle">{{ item.quantity }}</td>
                             <td class="align-middle">{{ item.color }}</td>
                             <td class="align-middle">{{ item.size }}</td>
-                            <td class="align-middle">{{ item.total }}</td>
+                            <td class="align-middle">${{ item.total }}</td>
                             <td class="align-middle"><a href="{% url 'cart:cart_delete' item.unique_id %}" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a></td>
                             </tr>
                         {% endfor %}
@@ -59,9 +59,9 @@
                     <div class="pt-2">
                         <div class="d-flex justify-content-between mt-2">
                             <h5>Total</h5>
-                            <h5>$160</h5>
+                            <h5>${{ Cart.total }}</h5>
                         </div>
-                        <button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Proceed To Checkout</button>
+                        <a class="btn btn-block btn-primary font-weight-bold my-3 py-3" href="{% url "cart:order_create" %}">Proceed To Checkout</a>
                     </div>
                 </div>
             </div>
