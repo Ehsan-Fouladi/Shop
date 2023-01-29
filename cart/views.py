@@ -3,7 +3,7 @@ from django.views import View
 from product.models import Product
 from .cart_module import Cart
 from .models import Order, OrderItem
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 class CartDetailView(View):
     def get(self, request):
@@ -11,7 +11,7 @@ class CartDetailView(View):
         return render(request, "cart/cart_detail.html", {'Cart': cart})
 
 
-class CartAddView(View):
+class CartAddView(LoginRequiredMixin, View):
     def post(self, request, pk):
         product = get_object_or_404(Product, id=pk)
         size, color, quantity = request.POST.get("size", 'size'), request.POST.get("color", 'color'), request.POST.get("quantity")
