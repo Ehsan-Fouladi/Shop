@@ -4,4 +4,4 @@ class UserLoginDetail:
         if not request.user.is_authenticated:
             return redirect("account:register_login")
         else:
-            return super(UserLoginDetail, self).dispatch(*args, **kwargs)
+            return super(UserLoginDetail, self).dispatch(request, *args, **kwargs)

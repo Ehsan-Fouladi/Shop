@@ -11,3 +11,8 @@ class OrderAdmin(admin.ModelAdmin):
     inlines = (OrderItemAdmin,)
     list_filter = ("is_paid",)
 
+
+@admin.register(models.DiscountCode)
+class DiscountCodeAdmin(admin.ModelAdmin):
+    list_display = ('name', 'discount', 'quantity')
+    list_filter = ("name",)

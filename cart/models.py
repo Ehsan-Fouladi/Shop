@@ -23,4 +23,14 @@ class OrderItem(models.Model):
     quantity = models.SmallIntegerField()
     price = models.PositiveIntegerField()
 
+class DiscountCode(models.Model):
+    name = models.CharField(max_length=7, verbose_name="کد تخفیف", unique=True)
+    discount = models.SmallIntegerField(default=0)
+    quantity = models.SmallIntegerField(default=1)
 
+    def __str__(self):
+        return f'{self.name}, {self.discount}'
+
+    class Meta:
+        verbose_name = "کد تخفیف کاربران"
+        verbose_name_plural = "کد تخفیف"
