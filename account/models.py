@@ -99,7 +99,7 @@ class Address(models.Model):
     postal_code = models.CharField(max_length=30)
 
     def __str__(self):
-        return f'{self.user.number}, {self.email}, {self.postal_code}'
+        return f'{self.user.number}, {self.postal_code}'
 
     class Meta:
         verbose_name = "ادرس کاربرها"

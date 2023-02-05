@@ -1,10 +1,11 @@
 from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, reverse
 from django.views import View
 from .forms import FormLogin, OtpLoginForm, CzechOtpForm, AddressCreationForm
 import ghasedakpack
 from random import randint
-from .models import Otp, User
+from .models import Otp, User, Address
 from django.utils.crypto import get_random_string
 from uuid import uuid4
 
@@ -81,7 +82,10 @@ class AddAddressView(View):
         if form.is_valid():
             address = form.save(commit=False)
             address.user = request.user
-            address.save()
+            if Address.objects.filter().count() <= 1:
+                address.save()
+            else:
+                return render(request, "cart/address_error.html")
             next_page = request.GET.get('next')
             if next_page:
                 return redirect(next_page)

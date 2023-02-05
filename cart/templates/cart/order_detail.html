@@ -61,6 +61,8 @@
                                     <option value="{{ address.id }}">{{ address.address }}</option>
                                 {% endfor %}
                                 </select>
+                                <a class="btn btn-block btn-warning font-weight-bold my-3 py-3"
+                                   href="{% url "account:Address" %}?next={% url "cart:order_detail" order.id %}">Enter another address</a>
                                 {% else %}
                                 <a class="btn btn-block btn-warning font-weight-bold my-3 py-3"
                                    href="{% url "account:Address" %}?next={% url "cart:order_detail" order.id %}">Add
