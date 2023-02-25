@@ -136,3 +136,11 @@ AUTH_USER_MODEL = 'account.User'
 
 AUTHENTICATION_BACKENDS=['django.contrib.auth.backends.ModelBackend',
                             'account.authentication.EmailAuthBackend']
+
+# docker in Redis
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379',
+    }
+}
