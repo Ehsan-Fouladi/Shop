@@ -9,13 +9,13 @@ from django.http import HttpResponse
 import requests
 import json
 
-class CartDetailView(View):
+class CartDetailView(UserLoginDetail, View):
     def get(self, request):
         cart = Cart(request)
         return render(request, "cart/cart_detail.html", {'Cart': cart})
 
 
-class CartAddView(UserLoginDetail, View):
+class CartAddView(View):
     def post(self, request, pk):
         product = get_object_or_404(Product, id=pk)
         size, color, quantity = request.POST.get("size", 'size'), request.POST.get("color", 'color'), request.POST.get("quantity")
@@ -30,11 +30,11 @@ class CartDeleteView(View):
         return redirect("cart:cart_detail")
 
 
-class OrderDetailView(View):
+class OrderDetailView(UserLoginDetail, View):
     def get(self, request, pk):
         order = get_object_or_404(Order, id=pk)
         return render(request, 'cart/order_detail.html', {'order': order})
-class OrderCreationView(View):
+class OrderCreationView(UserLoginDetail, View):
     def get(self, request):
         cart = Cart(request)
         order = Order.objects.create(user=request.user, total_price=cart.total())
@@ -44,7 +44,7 @@ class OrderCreationView(View):
         cart.remove_cart()
         return redirect('cart:order_detail', order.id)
 
-class ApplyDiscountView(View):
+class ApplyDiscountView(UserLoginDetail, View):
     def post(self, request, pk):
         code = request.POST.get('discount_code')
         order = get_object_or_404(Order, id=pk)
