@@ -1,11 +1,23 @@
 from django.db import models
 
+
+# category
+class Category(models.Model):
+    parent = models.ForeignKey('self', blank=True, null=True, on_delete=models.CASCADE, related_name='category')
+    title = models.CharField(max_length=100)
+    slug = models.SlugField()
+
+    def __str__(self):
+        return self.title
+
+
 # Size cart
 class Size(models.Model):
     title = models.CharField(max_length=10)
 
     def __str__(self):
         return f'{self.title}'
+
 
 #  Color cart article
 class Color(models.Model):
@@ -14,6 +26,7 @@ class Color(models.Model):
     def __str__(self):
         return f'{self.title}'
 
+
 # products
 class Product(models.Model):
     title = models.CharField(max_length=100)
@@ -21,8 +34,9 @@ class Product(models.Model):
     price = models.IntegerField()
     discount = models.SmallIntegerField()
     image = models.ImageField(upload_to="image/")
-    size = models.ManyToManyField(Size,blank=True,null=True, related_name="products")
+    size = models.ManyToManyField(Size, blank=True, null=True, related_name="products")
     color = models.ManyToManyField(Color, related_name="products")
+    category = models.ManyToManyField(Category, blank=True, null=True)
 
     def __str__(self):
         return f'{self.title}'
