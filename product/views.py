@@ -13,3 +13,7 @@ class NavbarView(TemplateView):
         context = super(NavbarView, self).get_context_data()
         context['categories'] = Category.objects.all()
         return context
+    
+
+class ContactUserView(TemplateView):
+    template_name = "product/contact.html"

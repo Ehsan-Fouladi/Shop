@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils.translation import gettext_lazy as _
 
 # category
 class Category(models.Model):
@@ -37,6 +37,7 @@ class Product(models.Model):
     size = models.ManyToManyField(Size, blank=True, null=True, related_name="products")
     color = models.ManyToManyField(Color, related_name="products")
     category = models.ManyToManyField(Category, blank=True, null=True)
+    times = models.DateTimeField(_("times"), auto_now_add=True)
 
     def __str__(self):
         return f'{self.title}'
