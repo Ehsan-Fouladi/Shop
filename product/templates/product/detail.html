@@ -26,7 +26,7 @@
 {#                {% cache 10 products %}#}
                     <h3>{{ product.title }}</h3>
 {#                {% endcache %}#}
-                    <h3 class="font-weight-semi-bold mb-4">${{ product.price }}</h3>
+                    {% if product.offer %}<h3 class="font-weight-semi-bold mb-4">${{ product.offer }}</h3>{% else %}<h3 class="font-weight-semi-bold mb-4">${{ product.price }}</h3>{% endif %}
                     <p class="mb-4">{{ product.description }}</p>
                     <div class="d-flex mb-3">
                         {% if product.size.all %}
@@ -173,9 +173,9 @@
                 <div class="owl-carousel related-carousel">
                     <div class="product-item bg-light">
                         <div class="product-img position-relative overflow-hidden">
-                            <img class="img-fluid w-100" src="{% static "product-1.jpg" %}" alt="">
+                            <img class="img-fluid w-100" src="{{ product.image.url }}">
                             <div class="product-action">
-                                <a class="btn btn-outline-dark btn-square" href=""><i
+                                <a class="btn btn-outline-dark btn-square" href="{% url 'cart:cart_detail' %}"><i
                                         class="fa fa-shopping-cart"></i></a>
                                 <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                                 <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
@@ -183,101 +183,14 @@
                             </div>
                         </div>
                         <div class="text-center py-4">
-                            <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
+                            <a class="h6 text-decoration-none text-truncate" href="{% url 'detail' product.pk %}">{{ product.title }}</a>
                             <div class="d-flex align-items-center justify-content-center mt-2">
-                                <h5>$123.00</h5>
+                                {% if product.offer %}<h5>${{ product.offer }}</h5>
                                 <h6 class="text-muted ml-2">
-                                    <del>$123.00</del>
+                                    <del>${{ product.price }}</del>
                                 </h6>
+                                {% else %}<h5>${{ product.price }}</h5>{% endif %}
                             </div>
-
-                        </div>
-                    </div>
-                    <div class="product-item bg-light">
-                        <div class="product-img position-relative overflow-hidden">
-                            <img class="img-fluid w-100" src="{% static "product-2.jpg" %}" alt="">
-                            <div class="product-action">
-                                <a class="btn btn-outline-dark btn-square" href=""><i
-                                        class="fa fa-shopping-cart"></i></a>
-                                <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                            </div>
-                        </div>
-                        <div class="text-center py-4">
-                            <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                            <div class="d-flex align-items-center justify-content-center mt-2">
-                                <h5>$123.00</h5>
-                                <h6 class="text-muted ml-2">
-                                    <del>$123.00</del>
-                                </h6>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="product-item bg-light">
-                        <div class="product-img position-relative overflow-hidden">
-                            <img class="img-fluid w-100" src="{% static "product-3.jpg" %}" alt="">
-                            <div class="product-action">
-                                <a class="btn btn-outline-dark btn-square" href=""><i
-                                        class="fa fa-shopping-cart"></i></a>
-                                <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                            </div>
-                        </div>
-                        <div class="text-center py-4">
-                            <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                            <div class="d-flex align-items-center justify-content-center mt-2">
-                                <h5>$123.00</h5>
-                                <h6 class="text-muted ml-2">
-                                    <del>$123.00</del>
-                                </h6>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="product-item bg-light">
-                        <div class="product-img position-relative overflow-hidden">
-                            <img class="img-fluid w-100" src="{% static "product-4.jpg" %}" alt="">
-                            <div class="product-action">
-                                <a class="btn btn-outline-dark btn-square" href=""><i
-                                        class="fa fa-shopping-cart"></i></a>
-                                <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                            </div>
-                        </div>
-                        <div class="text-center py-4">
-                            <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                            <div class="d-flex align-items-center justify-content-center mt-2">
-                                <h5>$123.00</h5>
-                                <h6 class="text-muted ml-2">
-                                    <del>$123.00</del>
-                                </h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-item bg-light">
-                        <div class="product-img position-relative overflow-hidden">
-                            <img class="img-fluid w-100" src="{% static "product-5.jpg" %}" alt="">
-                            <div class="product-action">
-                                <a class="btn btn-outline-dark btn-square" href=""><i
-                                        class="fa fa-shopping-cart"></i></a>
-                                <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                            </div>
-                        </div>
-                        <div class="text-center py-4">
-                            <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                            <div class="d-flex align-items-center justify-content-center mt-2">
-                                <h5>$123.00</h5>
-                                <h6 class="text-muted ml-2">
-                                    <del>$123.00</del>
-                                </h6>
-                            </div>
-
                         </div>
                     </div>
                 </div>

@@ -17,5 +17,7 @@ class HomeView(ListView):
         context["orders"] = Product.objects.all().order_by("-times")
         return context
 
-class ListShopView(TemplateView):
+class ListShopView(ListView):
     template_name = "home/list_Shop.html"
+    model = Product
+    queryset = Product.objects.order_by("-times")

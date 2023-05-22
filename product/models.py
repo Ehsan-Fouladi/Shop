@@ -36,7 +36,8 @@ class Product(models.Model):
     image = models.ImageField(upload_to="image/")
     size = models.ManyToManyField(Size, blank=True, null=True, related_name="products")
     color = models.ManyToManyField(Color, related_name="products")
-    category = models.ManyToManyField(Category, blank=True, null=True)
+    category = models.ManyToManyField(Category, blank=True, null=True, related_name="categories")
+    offer = models.CharField(_("offer"), max_length=50, blank=True, null=True)
     times = models.DateTimeField(_("times"), auto_now_add=True)
 
     def __str__(self):
