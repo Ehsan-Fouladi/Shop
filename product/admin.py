@@ -18,5 +18,6 @@ class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
 
 
+admin.site.register(models.Contact)
 admin.site.register(models.Color)
 admin.site.register(models.Size)

@@ -1,6 +1,7 @@
-from django.shortcuts import render
-from django.views.generic import DetailView, TemplateView
-from .models import Product, Category
+from django.views.generic import DetailView, TemplateView, FormView
+from django.urls import reverse_lazy
+from .models import Product, Category, Contact
+from .forms import ContactForms
 
 class ProductDetailView(DetailView):
     template_name = "product/detail.html"
@@ -15,5 +16,11 @@ class NavbarView(TemplateView):
         return context
     
 
-class ContactUserView(TemplateView):
+class ContactUserView(FormView):
     template_name = "product/contact.html"
+    form_class = ContactForms
+    success_url = reverse_lazy('home:home')
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)

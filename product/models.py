@@ -50,3 +50,13 @@ class Information(models.Model):
 
     def __str__(self):
         return self.text[:20]
+
+
+class Contact(models.Model):
+    name = models.CharField(_("Name"), max_length=100)
+    email = models.EmailField(_("Email"))
+    subject = models.CharField(_("subjects"), max_length=100)
+    body = models.TextField(_("message"))
+
+    def __str__(self):
+        return self.email
