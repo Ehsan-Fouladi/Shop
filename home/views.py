@@ -1,6 +1,8 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, ListView
+from django.views.generic import ListView
 from product.models import Product
+from django.db.models import Q
+from django.core.paginator import Paginator
 
 
 class HomeView(ListView):
@@ -17,10 +19,12 @@ class HomeView(ListView):
         context["orders"] = Product.objects.all().order_by("-times")
         return context
 
+
 class ListShopView(ListView):
     template_name = "home/list_Shop.html"
     model = Product
-    # queryset = Product.objects.order_by("-times",)
+    paginate_by = 1
+    ordering = ('-times',)
 
     def get_context_data(self, **kwargs):
         request = self.request
@@ -34,8 +38,18 @@ class ListShopView(ListView):
         if sizes:
             queryset = queryset.filter(size__title__in=sizes).distinct()
         if min_price and max_price:
-            queryset = queryset.filter(price__lte=max_price, price__gte=min_price)
+            queryset = queryset.filter(
+                price__lte=max_price, price__gte=min_price)
         context = super(ListShopView, self).get_context_data(**kwargs)
-        context["object_list"] = queryset 
+        context["object_list"] = queryset
         return context
-    
+
+
+def SearchView(request):
+    q = request.GET.get('q')
+    products = Product.objects.filter(
+        Q(title__icontains=q) | Q(description__icontains=q))
+    page_number = request.GET.get('page')
+    paginator = Paginator(products, 1)
+    object_list = paginator.get_page(page_number)
+    return render(request, 'home/list_Shop.html', {"object_list": object_list})
