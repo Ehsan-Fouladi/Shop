@@ -160,11 +160,11 @@
                         <div class="text-center py-4">
                             <a class="h6 text-decoration-none text-truncate" href="{% url "detail" product.pk %}">{{ product.title }}</a>
                             <div class="d-flex align-items-center justify-content-center mt-2">
-                                {% if product.offer %}<h5>${{ product.offer }}</h5>
+                                {% if product.price %}<h5>${{ product.price }}</h5>
                                 <h6 class="text-muted ml-2">
-                                    <del>${{ product.price }}</del>
+                                    {% if product.offer %}<del>${{product.offer}}</del>{% endif %}
                                 </h6>
-                                {% else %}<h5>${{ product.price }}</h5>{% endif %}
+                                {% else %}<h5>${{ product.offer }}</h5>{% endif %}
                             </div>
 
                         </div>
@@ -225,11 +225,11 @@
                         <div class="text-center py-4">
                             <a class="h6 text-decoration-none text-truncate" href="{% url "detail" object.pk %}">{{ object.title }}</a>
                             <div class="d-flex align-items-center justify-content-center mt-2">
-                                {% if object.offer %}<h5>${{ object.offer }}</h5>
+                                {% if object.price %}<h5>${{ object.price }}</h5>
                                 <h6 class="text-muted ml-2">
-                                    <del>{{object.price}}</del>
+                                    {% if object.offer %}<del>${{object.offer}}</del>{% endif %}
                                 </h6>
-                                {% else %}<h5>${{ object.price }}</h5>{% endif %}
+                                {% else %}<h5>${{ object.offer }}</h5>{% endif %}
                             </div>
                         </div>
                     </div>

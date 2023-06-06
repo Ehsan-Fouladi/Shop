@@ -26,7 +26,7 @@
 {#                {% cache 10 products %}#}
                     <h3>{{ product.title }}</h3>
 {#                {% endcache %}#}
-                    {% if product.offer %}<h3 class="font-weight-semi-bold mb-4">${{ product.offer }}</h3>{% else %}<h3 class="font-weight-semi-bold mb-4">${{ product.price }}</h3>{% endif %}
+                    {% if product.price %}<h3 class="font-weight-semi-bold mb-4">${{ product.price }}</h3>{% else %}<h3 class="font-weight-semi-bold mb-4">${{ product.offer }}</h3>{% endif %}
                     <p class="mb-4">{{ product.description }}</p>
                     <div class="d-flex mb-3">
                         {% if product.size.all %}
@@ -185,11 +185,11 @@
                         <div class="text-center py-4">
                             <a class="h6 text-decoration-none text-truncate" href="{% url 'detail' product.pk %}">{{ product.title }}</a>
                             <div class="d-flex align-items-center justify-content-center mt-2">
-                                {% if product.offer %}<h5>${{ product.offer }}</h5>
+                                {% if product.price %}<h5>${{ product.price }}</h5>
                                 <h6 class="text-muted ml-2">
-                                    <del>${{ product.price }}</del>
+                                    <del>${{ product.offer }}</del>
                                 </h6>
-                                {% else %}<h5>${{ product.price }}</h5>{% endif %}
+                                {% else %}<h5>${{ product.offer }}</h5>{% endif %}
                             </div>
                         </div>
                     </div>

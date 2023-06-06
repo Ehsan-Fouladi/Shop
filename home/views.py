@@ -20,4 +20,22 @@ class HomeView(ListView):
 class ListShopView(ListView):
     template_name = "home/list_Shop.html"
     model = Product
-    queryset = Product.objects.order_by("-times")
+    # queryset = Product.objects.order_by("-times",)
+
+    def get_context_data(self, **kwargs):
+        request = self.request
+        colors = request.GET.getlist("color")
+        sizes = request.GET.getlist("size")
+        min_price = request.GET.get("min-price")
+        max_price = request.GET.get("max-price")
+        queryset = Product.objects.all()
+        if colors:
+            queryset = queryset.filter(color__title__in=colors).distinct()
+        if sizes:
+            queryset = queryset.filter(size__title__in=sizes).distinct()
+        if min_price and max_price:
+            queryset = queryset.filter(price__lte=max_price, price__gte=min_price)
+        context = super(ListShopView, self).get_context_data(**kwargs)
+        context["object_list"] = queryset 
+        return context
+    
